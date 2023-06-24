@@ -4,7 +4,7 @@
   become: yes
   connection: ssh
   gather_facts: false
-#  vars:
+  vars: hi this is i uncoment only for testing
 #    docker_image_name: myimg
 #    dockerfile_path: /test1/Frontend/
 #    docker_image_tag: latest
