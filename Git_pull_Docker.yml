@@ -13,7 +13,7 @@
     - name: Clone repository
       git:
         repo: git@bitbucket.org:WittyIT/witty-ticketing.git
-        dest: /test1
+        dest: /home/ansible3/test1
         clone: yes
         version: Docker
         accept_hostkey: yes
