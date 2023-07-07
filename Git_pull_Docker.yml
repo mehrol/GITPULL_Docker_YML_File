@@ -1,23 +1,23 @@
 ---
 - hosts: Demo
-  user: ansible1
+  user: ansible3
   become: yes
   connection: ssh
   gather_facts: false
-  vars: hi this is i uncoment only for testing
+#  vars: hi this is i uncoment only for testing
 #    docker_image_name: myimg
 #    dockerfile_path: /test1/Frontend/
 #    docker_image_tag: latest
 
   tasks:
-#    - name: Clone repository
-#      git:
-#        repo: git@bitbucket.org:WittyIT/witty-ticketing.git
-#        dest: /test1
-#        clone: yes
-#        version: Docker
-#        accept_hostkey: yes
-#        key_file: /home/ansible1/.ssh/id_rsa
+    - name: Clone repository
+      git:
+        repo: git@bitbucket.org:WittyIT/witty-ticketing.git
+        dest: /test1
+        clone: yes
+        version: Docker
+        accept_hostkey: yes
+        key_file: /home/ansible3/.ssh/id_rsa
 
 #    - name: Install Docker
 #      command: apt-get install docker.io -y
@@ -27,5 +27,5 @@
 
 #    - name: Build Image
 #      command: docker build -t {{ docker_image_name }}:{{ docker_image_tag }} {{ dockerfile_path }}
-    - name: Docker container Frontend start
-      command: docker run -itd -p 3000:3000 myimg
+#    - name: Docker container Frontend start
+#      command: docker run -itd -p 3000:3000 myimg
