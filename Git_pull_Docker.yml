@@ -17,7 +17,7 @@
         clone: yes
         version: Docker
         accept_hostkey: yes
-        key_file: /home/ansible3/.ssh/id_rsa
+        key_file: /home/ansible1/.ssh/id_rsa
 
 #    - name: Install Docker
 #      command: apt-get install docker.io -y
