@@ -5,8 +5,10 @@
   connection: ssh
   gather_facts: false
   vars:
-    docker_image_name: myimg
+    docker_image_name: frontendimg
+    docker_image_name1: backendimg
     dockerfile_path: /home/ansible3/workspace/Jenkins_pull_Wittyticketing/Frontend
+    dockerfile_path1: /home/ansible3/workspace/Jenkins_pull_Wittyticketing/Backend
     docker_image_tag: latest
 
   tasks:
@@ -28,4 +30,8 @@
     - name: Build Image
       command: docker build -t {{ docker_image_name }}:{{ docker_image_tag }} {{ dockerfile_path }}
     - name: Docker container Frontend start
-      command: docker run -itd -p 3000:3000 myimg
+      command: docker run -itd -p 3000:3000 frontendimg
+    - name: Docker build Image Backend
+      command: docker build -t {{ docker_image_name1 }}:{{ docker_image_tag }} {{ dockerfile_path1 }}
+    - name: Docker container Backend start
+      command: docker run -itd -p 8000:8000 backendimg
