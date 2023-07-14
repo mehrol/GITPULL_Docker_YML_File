@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Git Repository') {
+            steps {
+                checkout([$class: 'GitSCM',
+                          branches: [[name: '*/vicky']],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions: [[$class: 'CloneOption',
+                                        depth: 1,
+                                        noTags: true,
+                                        reference: '',
+                                        shallow: true]],
+                          submoduleCfg: [],
+                          userRemoteConfigs: [[url: 'https://github.com/mehrol/GITPULL_Docker_YML_File.git']]])
+            }
+        }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    // Change to the desired directory
+                    dir('/var/lib/jenkins/workspace/Ansible_Pipeline') {
+                        // Replace with your Ansible playbook command
+                        sh 'ansible-playbook Git_pull_Docker.yml'
+                        sh 'ansible-playbook Git_pull_backend.yml'
+                    }
+                }
+            }
+        }
+
+        stage('Check for Changes') {
+            steps {
+                script {
+                    // Change to the directory again
+                    dir('/var/lib/jenkins/workspace/Ansible_Pipeline') {
+                        // Get the latest commit ID
+                        def latestCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+
+                        // Pull the latest changes from Git repository
+                        sh 'git pull'
+
+                        // Get the latest commit ID after pulling changes
+                        def updatedCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+
+                        // Compare commit IDs to check for changes
+                        if (latestCommit != updatedCommit) {
+                            // Re-run Ansible playbook
+                            sh 'ansible-playbook Git_pull_Docker.yml'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

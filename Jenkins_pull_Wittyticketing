@@ -1,0 +1,38 @@
+pipeline {
+    agent  {
+        node {
+            label 'DockerNodePj' // Replace with the label of your slave node
+        }
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/Docker1']], 
+                          userRemoteConfigs: [[url: 'git@bitbucket.org:WittyIT/witty-ticketing.git']]])
+            }
+        }
+
+        stage('Check for Changes') {
+            steps {
+                script {
+                    def changes = checkout(scm: [$class: 'GitSCM', 
+                                                 branches: [[name: '*/Docker1']], 
+                                                 userRemoteConfigs: [[url: 'git@bitbucket.org:WittyIT/witty-ticketing.git']]], 
+                                           poll: false, 
+                                           changelog: true)
+                    
+                    if (changes) {
+                        echo "There are new changes in the repository"
+                        build job: 'Ansible_Pipeline', propagate: false
+                    } else {
+                        echo "No new changes in the repository"
+                    }
+                }
+            }
+            
+        
+        
+        }
+    }
+}
