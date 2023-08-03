@@ -1,12 +1,12 @@
 ---
-- hosts: Demo
-  user: ansible3
+- hosts: ticketing
+  user: wittyticketing
   become: yes
   connection: ssh
   gather_facts: false
   vars:
     docker_image_name: frontendimg
-    dockerfile_path: /home/ansible3/workspace/Jenkins_pull_Wittyticketing/Frontend
+    dockerfile_path: /home/wittyticketing/workspace/Wittyticketing/Frontend
     docker_image_tag: latest
 
   tasks:

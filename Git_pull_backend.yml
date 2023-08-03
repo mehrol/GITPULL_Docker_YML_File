@@ -1,12 +1,12 @@
 ---
-- hosts: Demo
-  user: ansible3
+- hosts: ticketing
+  user: wittyticketing
   become: yes
   connection: ssh
   gather_facts: false
   vars:
     docker_image_name: backendimg
-    dockerfile_path: /home/ansible3/workspace/Jenkins_pull_Wittyticketing/Backend
+    dockerfile_path: /home/wittyticketing/workspace/Wittyticketing/Backend
     docker_image_tag: latest
 
   tasks:
@@ -19,11 +19,11 @@
 #        accept_hostkey: yes
 #        key_file: /home/ansible3/.ssh/id_rsa
 
-#    - name: Install Docker
-#      command: apt-get install docker.io -y
+    - name: Install Docker
+      command: apt-get install docker.io -y
 
-#    - name: Run Docker Service
-#      command: systemctl enable --now docker
+    - name: Run Docker Service
+      command: systemctl enable --now docker
 
     - name: Build Image
       command: docker build -t {{ docker_image_name }}:{{ docker_image_tag }} {{ dockerfile_path }}
