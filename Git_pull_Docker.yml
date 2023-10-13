@@ -1,29 +1,30 @@
+
 ---
-- hosts: ticketing
-  user: wittyticketing
+- hosts: Demo
+  user: ansible1
   become: yes
   connection: ssh
   gather_facts: false
   vars:
     docker_image_name: frontendimg
-    dockerfile_path: /home/wittyticketing/workspace/Wittyticketing/Frontend
+    dockerfile_path: /home/ansible1/workspace/Wittyticketing/Frontend
     docker_image_tag: latest
 
   tasks:
-#    - name: Clone repository
-#      git:
-#        repo: git@bitbucket.org:WittyIT/witty-ticketing.git
-#        dest: /home/ansible3/test1
-#        clone: yes
-#        version: Docker
-#        accept_hostkey: yes
-#        key_file: /home/ansible3/.ssh/id_rsa
+    - name: Clone repository
+      git:
+        repo: git@bitbucket.org:WittyIT/witty-ticketing.git
+        dest: /home/ansible1/test1
+        clone: yes
+        version: develop
+        accept_hostkey: yes
+        key_file: /home/ansible1/.ssh/id_rsa
 
-#    - name: Install Docker
-#      command: apt-get install docker.io -y
+    - name: Install Docker
+      command: apt-get install docker.io -y
 
-#    - name: Run Docker Service
-#      command: systemctl enable --now docker
+    - name: Run Docker Service
+      command: systemctl enable --now docker
 
     - name: Build Image
       command: docker build -t {{ docker_image_name }}:{{ docker_image_tag }} {{ dockerfile_path }}
