@@ -7,7 +7,7 @@
   gather_facts: false
   vars:
     docker_image_name: frontendimg
-    dockerfile_path: /home/ansible1/workspace/Wittyticketing/Frontend
+    dockerfile_path: /home/ansible1/workspace/test1/Frontend
     docker_image_tag: latest
 
   tasks:
