@@ -27,7 +27,7 @@
       command: systemctl enable --now docker
 
     - name: Permission Allowd
-      command: sudo chmod var/run/*
+      command: sudo chmod /var/run/*
 
     - name: Build Image
       command: docker build -t {{ docker_image_name }}:{{ docker_image_tag }} {{ dockerfile_path }}
