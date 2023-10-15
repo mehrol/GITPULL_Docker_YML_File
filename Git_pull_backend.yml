@@ -6,7 +6,7 @@
   gather_facts: false
   vars:
     docker_image_name: backendimg
-    dockerfile_path: /home/ansible1/workspace/test1/Backend
+    dockerfile_path: /home/ansible1/workspace/test1/Backend/Dockerfile
     docker_image_tag: latest
 
   tasks:
